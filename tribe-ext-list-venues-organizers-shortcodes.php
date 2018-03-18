@@ -42,7 +42,7 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( 'Tribe__Extension__Ve
 		 */
 		public function init() {
 			// Load plugin textdomain
-			load_plugin_textdomain( 'tribe-list-venues-organizers-shortcodes', false, basename( dirname( __FILE__ ) ) . '/languages/' );
+			load_plugin_textdomain( 'tribe-ext-list-venues-organizers-shortcodes', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 			add_action( 'wp_enqueue_scripts', array( $this, 'load_styles' ) );
 		}
 
