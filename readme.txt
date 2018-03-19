@@ -9,11 +9,11 @@ Stable tag: 2.0.0
 License: GPL version 3 or any later version
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Brief description of the extension.
+Adds the `[list_venues]` and `[list_organizers]` shortcodes to list Venues and Organizers.
 
 == Description ==
 
-Creates a shortcode to list venues and organizers
+Adds the `[list_venues]` and `[list_organizers]` shortcodes to list Venues and Organizers.
 
 == Installation ==
 

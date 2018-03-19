@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin name: 	The Events Calendar Extension: List Venues/Organizers Shortcodes
- * Description: 	Adds shortcodes to help list venues and organizers
- * Version:     	2.0
+ * Description: 	Adds the `[list_venues]` and `[list_organizers]` shortcodes to list Venues and Organizers.
+ * Version:     	2.0.0
  * Extension Class: Tribe__Extension__VenueOrganizer_List
  * Author:      	Modern Tribe, Inc
  * Author URI:  	http://theeventscalendar.com
