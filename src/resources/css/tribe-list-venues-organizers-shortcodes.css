@@ -19,15 +19,12 @@ ul.tribe-venues-organizers-shortcode {
     float: left;
 }
 
-.tribe-venues-organizers-event-count {
-    margin-bottom: 5px;
-}
-
 .tribe-venues-organizers-info a {
     margin-top: 5px;
 }
 
 .tribe-venues-organizers-event-count {
+    margin-bottom: 5px;
     font-style: italic;
     display: block;
 }
