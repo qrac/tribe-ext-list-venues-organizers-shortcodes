@@ -4,8 +4,8 @@ Donate link: http://m.tri.be/29
 Tags: events, calendar
 Requires at least: 4.5
 Tested up to: 4.9.4
-Requires PHP: 5.2.4
-Stable tag: 1.0.0
+Requires PHP: 5.4
+Stable tag: 2.0.0
 License: GPL version 3 or any later version
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -38,6 +38,20 @@ tends to be very limited.
 
 == Changelog ==
 
-= 1.0.0 =
+= 2.0.0 2018-03-19 =
 
-* Initial release
+* Fully rewritten in our Extensions Framework
+* Fix - Listing Organizers now works
+* Fix - No longer links to single Venue or Organizer pages if PRO is not active
+* Feature - Optionally limit the quantity of Venues or Organizers output
+* Feature - Optionally list Venue or Organizer by ID(s)
+* Feature - Optionally exclude Venues or Organizers by ID(s)
+* Feature - Optionally output Venue or Organizer featured image
+* Feature - Optionally output Venue or Organizer count of upcoming events
+* Feature - Optionally hide Venues or Organizers without upcoming events
+* Feature - Optionally sort Venues or Organizers by WP_Query's `order` and `orderby` parameters
+* Feature - Optionally display Venues or Organizers by author
+
+= 1.0.0 2015-04-01 =
+
+* Initial release as a Knowledgebase plugin
