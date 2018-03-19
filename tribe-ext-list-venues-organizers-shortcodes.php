@@ -176,21 +176,12 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( 'Tribe__Extension__Ve
 			wp_reset_postdata();
 		}
 
-		public static function get_type( $type_const ) {
-			if ( class_exists( 'Tribe__Events__Main' ) ) $class = 'Tribe__Events__Main';
-			elseif ( class_exists( 'TribeEvents' ) )     $class = 'TribeEvents';
-			else return false;
-
-			$class = new ReflectionClass( $class );
-			return $class->getConstant( $type_const );
-		}
-
 		public function tec_do_venue_shortcode( $atts ) {
-			return 	$this->do_shortcode( self::get_type( 'VENUE_POST_TYPE' ), $atts );
+			return 	$this->do_shortcode( Tribe__Events__Main::VENUE_POST_TYPE, $atts );
 		}
 
 		public function tec_do_organizer_shortcode( $atts ) {
-			return 	$this->do_shortcode( self::get_type( 'ORGANIZER_POST_TYPE' ), $atts );
+			return 	$this->do_shortcode( Tribe__Events__Main::ORGANIZER_POST_TYPE, $atts );
 		}
 
 		private function do_shortcode( $post_type, $atts ) {
