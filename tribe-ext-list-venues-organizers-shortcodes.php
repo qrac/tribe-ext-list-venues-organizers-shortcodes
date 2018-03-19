@@ -78,12 +78,12 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( 'Tribe__Extension__Ve
 			if ( $this->atts['include'] ) { $args['post__in'] = $include; }
 			if ( $this->atts['author'] ) { $args['author'] = $author; }
 
-			$this->query = new WP_Query( apply_filters( __CLASS__ . '.args', $args, $this->atts ) );
+			$this->query = new WP_Query( apply_filters( 'tribe_ext_list_venues_organizers_shortcodes_args', $args, $this->atts ) );
 		}
 
 		protected function format() {
 			$opening_tag  = '<ul class="tribe-venues-organizers-shortcode list ' . $this->atts['post_type'] . '">';
-			$this->output = apply_filters( __CLASS__ . '.list.open', $opening_tag, $this->atts );
+			$this->output = apply_filters( 'tribe_ext_list_venues_organizers_shortcodes_list_open', $opening_tag, $this->atts );
 
 			// remove all whitespaces
 			$thumb 		= preg_replace( '/\s+/', '', $this->atts['thumb'] );
@@ -168,11 +168,11 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( 'Tribe__Extension__Ve
 
 					$item .= implode( '', $items ) . '</div></li>';
 
-					$this->output .= apply_filters( __CLASS__ . '.list.item', $item, $this->atts );
+					$this->output .= apply_filters( 'tribe_ext_list_venues_organizers_shortcodes_list_item', $item, $this->atts );
 				endif;
 			}
 
-			$this->output .= apply_filters( __CLASS__ . '.list.close', '</ul>', $this->atts );
+			$this->output .= apply_filters( 'tribe_ext_list_venues_organizers_shortcodes_list_close', '</ul>', $this->atts );
 			wp_reset_postdata();
 		}
 
