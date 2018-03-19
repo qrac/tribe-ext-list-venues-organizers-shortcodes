@@ -33,8 +33,9 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( 'Tribe__Extension__Ve
 		protected $output = '';
 
 		public function construct() {
-			add_shortcode( 'list_venues', array( $this, 'tec_do_venue_shortcode' ) );
-			add_shortcode( 'list_organizers', array( $this, 'tec_do_organizer_shortcode' ) );
+			$this->add_required_plugin( 'Tribe__Events__Main', '4.3' );
+			$this->set_url( 'https://theeventscalendar.com/extensions/list-venues-and-organizers-shortcodes/' );
+			$this->set_version( '2.0.0' );
 		}
 
 		/**
@@ -43,6 +44,10 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( 'Tribe__Extension__Ve
 		public function init() {
 			// Load plugin textdomain
 			load_plugin_textdomain( 'tribe-ext-list-venues-organizers-shortcodes', false, basename( dirname( __FILE__ ) ) . '/languages/' );
+
+			add_shortcode( 'list_venues', array( $this, 'tec_do_venue_shortcode' ) );
+			add_shortcode( 'list_organizers', array( $this, 'tec_do_organizer_shortcode' ) );
+
 			add_action( 'wp_enqueue_scripts', array( $this, 'load_styles' ) );
 		}
 
