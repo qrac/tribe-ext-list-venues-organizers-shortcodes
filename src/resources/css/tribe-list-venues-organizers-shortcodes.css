@@ -3,30 +3,30 @@
  */
 
 ul.tribe-venues-organizers-shortcode {
-    list-style-type: none;
+	list-style-type: none;
 }
 
 .tribe-venues-organizers-shortcode li {
-    width: 100%;
-    float: left;
-    padding-bottom: 10px;
+	width: 100%;
+	float: left;
+	padding-bottom: 10px;
 }
 
 .tribe-venues-organizers-image {
-    margin-right: 10px;
-    max-height: 40px;
-    max-width: 40px;
-    float: left;
+	margin-right: 10px;
+	max-height: 40px;
+	max-width: 40px;
+	float: left;
 }
 
 .tribe-venues-organizers-info a {
-    margin-top: 5px;
+	margin-top: 5px;
 }
 
 .tribe-venues-organizers-event-count {
-    margin-bottom: 5px;
-    font-style: italic;
-    display: block;
+	margin-bottom: 5px;
+	font-style: italic;
+	display: block;
 }
 
 .tribe-organizer-details, .tribe-venue-details {
