@@ -4,6 +4,13 @@
 
 ul.tribe-venues-organizers-shortcode {
 	list-style-type: none;
+	padding: 5px;
+}
+
+ul.tribe-venues-organizers-shortcode::after {
+	content: "";
+	display: table;
+	clear: both;
 }
 
 .tribe-venues-organizers-shortcode li {
