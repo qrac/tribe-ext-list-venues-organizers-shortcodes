@@ -4,8 +4,8 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: The Events Calendar Extension: List Venues/Organizers "
 "Shortcodes\n"
-"POT-Creation-Date: 2018-03-19 18:50-0500\n"
-"PO-Revision-Date: 2018-03-19 18:50-0500\n"
+"POT-Creation-Date: 2018-03-21 13:43-0500\n"
+"PO-Revision-Date: 2018-03-21 13:43-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,11 +22,11 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: tribe-ext-list-venues-organizers-shortcodes.php:143
+#: tribe-ext-list-venues-organizers-shortcodes.php:163
 msgid "No upcoming events"
 msgstr ""
 
-#: tribe-ext-list-venues-organizers-shortcodes.php:145
+#: tribe-ext-list-venues-organizers-shortcodes.php:165
 #, php-format
 msgid "%s upcoming event"
 msgid_plural "%s upcoming events"
@@ -37,10 +37,17 @@ msgstr[1] ""
 msgid "The Events Calendar Extension: List Venues/Organizers Shortcodes"
 msgstr ""
 
+#. Plugin URI of the plugin/theme
+msgid ""
+"https://github.com/mt-support/tribe-ext-list-venues-organizers-shortcodes/"
+msgstr ""
+
 #. Description of the plugin/theme
 msgid ""
 "Adds the `[list_venues]` and `[list_organizers]` shortcodes to list Venues "
-"and Organizers."
+"and Organizers. Custom linked post types (https://theeventscalendar.com/"
+"knowledgebase/linked-post-types/) can be used as well, such as "
+"`[tec_list_linked_posts post_type=\"tribe_ext_instructor\"]`."
 msgstr ""
 
 #. Author of the plugin/theme
