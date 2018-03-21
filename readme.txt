@@ -5,15 +5,17 @@ Tags: events, calendar
 Requires at least: 4.5
 Tested up to: 4.9.4
 Requires PHP: 5.4
-Stable tag: 2.0.0
+Stable tag: 2.1.0
 License: GPL version 3 or any later version
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Adds the `[list_venues]` and `[list_organizers]` shortcodes to list Venues and Organizers.
+Adds the `[list_venues]` and `[list_organizers]` shortcodes to list Venues and Organizers. [Custom linked post types](https://theeventscalendar.com/knowledgebase/linked-post-types/) can be used as well, such as `[list_instructors]`.
 
 == Description ==
 
 Adds the `[list_venues]` and `[list_organizers]` shortcodes to list Venues and Organizers.
+
+[Custom linked post types](https://theeventscalendar.com/knowledgebase/linked-post-types/) can be used as well, such as `[list_instructors]`.
 
 == Installation ==
 
@@ -34,6 +36,10 @@ Please visit our [extension library](https://theeventscalendar.com/extensions/) 
 We're always interested in your feedback and our [premium forums](https://theeventscalendar.com/support-forums/) are the best place to flag any issues. Do note, however, that the degree of support we provide for extensions like this one tends to be very limited.
 
 == Changelog ==
+
+= 2.1.0 2018-03-21 =
+
+* Feature - Added support for custom linked post types, such as from https://theeventscalendar.com/knowledgebase/linked-post-types/
 
 = 2.0.0 2018-03-19 =
 

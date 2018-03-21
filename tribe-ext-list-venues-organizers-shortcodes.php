@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin name:     The Events Calendar Extension: List Venues/Organizers Shortcodes
- * Description:     Adds the `[list_venues]` and `[list_organizers]` shortcodes to list Venues and Organizers.
- * Version:         2.0.0
+ * Description:     Adds the `[list_venues]` and `[list_organizers]` shortcodes to list Venues and Organizers. [Custom linked post types](https://theeventscalendar.com/knowledgebase/linked-post-types/) can be used as well, such as `[list_instructors]`.
+ * Version:         2.1.0
  * Extension Class: Tribe__Extension__VenueOrganizer_List
  * Author:          Modern Tribe, Inc
  * Author URI:      http://theeventscalendar.com
@@ -35,7 +35,7 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( 'Tribe__Extension__Ve
 		public function construct() {
 			$this->add_required_plugin( 'Tribe__Events__Main', '4.3' );
 			$this->set_url( 'https://theeventscalendar.com/extensions/list-venues-and-organizers-shortcodes/' );
-			$this->set_version( '2.0.0' );
+			$this->set_version( '2.1.0' );
 		}
 
 		/**
@@ -191,7 +191,7 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( 'Tribe__Extension__Ve
 		private function do_shortcode( $post_type, $atts ) {
 			$this->atts = shortcode_atts( array(
 				'post_type'  => $post_type,
-				'limit'      => - 1,
+				'limit'      => -1,
 				'order'      => 'ASC',
 				'orderby'    => 'post_title',
 				'exclude'    => '', // comma-separated list of Venue post IDs or Organizer post IDs
