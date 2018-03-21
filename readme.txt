@@ -9,13 +9,13 @@ Stable tag: 2.1.0
 License: GPL version 3 or any later version
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Adds the `[list_venues]` and `[list_organizers]` shortcodes to list Venues and Organizers. [Custom linked post types](https://theeventscalendar.com/knowledgebase/linked-post-types/) can be used as well, such as `[list_instructors]`.
+Adds the `[list_venues]` and `[list_organizers]` shortcodes to list Venues and Organizers. Custom linked post types (https://theeventscalendar.com/knowledgebase/linked-post-types/) can be used as well, such as `[tec_list_linked_posts post_type="tribe_ext_instructor"]`.
 
 == Description ==
 
 Adds the `[list_venues]` and `[list_organizers]` shortcodes to list Venues and Organizers.
 
-[Custom linked post types](https://theeventscalendar.com/knowledgebase/linked-post-types/) can be used as well, such as `[list_instructors]`.
+Custom linked post types (https://theeventscalendar.com/knowledgebase/linked-post-types/) can be used as well, such as `[tec_list_linked_posts post_type="tribe_ext_instructor"]`.
 
 == Installation ==
 
@@ -39,7 +39,8 @@ We're always interested in your feedback and our [premium forums](https://theeve
 
 = 2.1.0 2018-03-21 =
 
-* Feature - Added support for custom linked post types, such as from https://theeventscalendar.com/knowledgebase/linked-post-types/
+* Feature - Regisers a new `[tec_list_linked_posts]` shortcode that can have any linked post type passed to its "post_type" argument, which means this shortcode now supports custom linked post types (see code comments for limitations), such as from https://theeventscalendar.com/knowledgebase/linked-post-types/
+* Tweak - Reworked some filters to fix some not being applied and to pass the `$post_id` to filters within the loop (for each linked post type post)
 
 = 2.0.0 2018-03-19 =
 
