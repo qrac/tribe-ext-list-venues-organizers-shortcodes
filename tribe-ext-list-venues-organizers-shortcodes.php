@@ -116,7 +116,7 @@ if (
 					$args['venue'] = $post_id;
 				}
 
-				$args = apply_filters( 'tribe_ext_list_venues_organizers_shortcodes_tribe_get_events_per_post_args', $args, $post_id, $this->atts );
+				$args = apply_filters( 'tribe_ext_list_venues_organizers_shortcodes_get_events_per_post_args', $args, $post_id, $this->atts );
 
 				$events       = tribe_get_events( $args );
 				$events_count = count( $events );
@@ -228,7 +228,7 @@ if (
 		 * by default (also keep in mind how the `hide_empty` argument might be
 		 * affected). To get it to work, you would need to leverage the
 		 * `tribe_ext_list_venues_organizers_shortcodes_args` and
-		 * `tribe_ext_list_venues_organizers_shortcodes_tribe_get_events_per_post_args`
+		 * `tribe_ext_list_venues_organizers_shortcodes_get_events_per_post_args`
 		 * filters to add your necessary custom logic.
 		 *
 		 * @param $atts
