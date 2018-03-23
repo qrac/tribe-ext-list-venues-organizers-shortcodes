@@ -126,7 +126,7 @@ if (
 					'yes' != $hide_empty
 					|| (
 						'yes' == $hide_empty
-					     && $events_count > 0
+						&& $events_count > 0
 					)
 				) :
 					$item       = sprintf( '<li id="%s" class="tec list %s">', esc_attr( $this->atts['post_type'] . '-' . $post_id ), esc_attr( $this->atts['post_type'] ) );

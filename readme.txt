@@ -37,7 +37,7 @@ We're always interested in your feedback and our [premium forums](https://theeve
 
 == Changelog ==
 
-= 2.1.0 2018-03-22 =
+= 2.1.0 2018-03-23 =
 
 * Feature - Registers a new `[tec_list_linked_posts]` shortcode that can have any linked post type passed to its "post_type" argument, which means this shortcode now supports custom linked post types (see code comments for limitations), such as from https://theeventscalendar.com/knowledgebase/linked-post-types/
 * Tweak - Reworked some filters to fix some not being applied and to pass the `$post_id` to filters within the loop (for each linked post type post)
