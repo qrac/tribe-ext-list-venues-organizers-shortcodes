@@ -36,6 +36,6 @@ ul.tribe-venues-organizers-shortcode::after {
 	display: block;
 }
 
-.tribe-organizer-details, .tribe-venue-details {
+.tribe-venues-organizers-details {
 	font-size: 0.8em;
 }
