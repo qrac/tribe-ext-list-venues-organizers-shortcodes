@@ -139,18 +139,46 @@ if (
 						}
 					}
 
+					// reset at the start of processing each post
+					$link = '';
+
 					// get the title - if TEC PRO, link to Linked Post Type's single page, else just output title without link
-					if (
-						(
-							Tribe__Events__Main::ORGANIZER_POST_TYPE != $this->atts['post_type']
-							&& Tribe__Events__Main::VENUE_POST_TYPE != $this->atts['post_type']
-						)
-						|| defined( 'EVENTS_CALENDAR_PRO_DIR' )
-					) {
-						$link = '<a href="' . get_the_permalink() . '">' . get_the_title() . '</a>';
+					if ( Tribe__Dependency::instance()->is_plugin_active( 'Tribe__Events__Pro__Main' ) ) {
+						if ( Tribe__Events__Organizer::POSTTYPE == $this->atts['post_type']) {
+							$link = tribe_get_organizer_link( $post_id );
+						} else if ( Tribe__Events__Venue::POSTTYPE == $this->atts['post_type']) {
+							$link = tribe_get_venue_link( $post_id );
+						}
 					} else {
-						$link = get_the_title();
+						if (
+							Tribe__Events__Organizer::POSTTYPE == $this->atts['post_type']
+							|| Tribe__Events__Venue::POSTTYPE == $this->atts['post_type']
+						) {
+							$link = get_the_title();
+						}
 					}
+
+					/**
+					 * Customize the link within the List Linked Post Types shortcode.
+					 *
+					 * Useful to disable linking (href) the post title if the custom
+					 * linked post type posts do not have publicly-visible get_the_permalink()
+					 * pages, or if you want to add some additional HTML.
+					 *
+					 * @since 2.1.1
+					 *
+					 * @param string $link      The full link (which may be empty or just a post title).
+					 * @param string $post_type The post type key
+					 * @param int    $post_id   The Post ID.
+					 *
+					 * @return string
+					 */
+					$link = (string) apply_filters( 'tribe_venue_organizer_shortcode_link', $link, $this->atts['post_type'], $post_id );
+
+					if ( empty( $link ) ) {
+						$link = sprintf( '<a href="%s">%s</a>', get_the_permalink(), get_the_title() );
+					}
+
 					$items['link'] = $link;
 
 					// get the upcoming event count string
