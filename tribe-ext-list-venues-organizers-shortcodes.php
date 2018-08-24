@@ -34,7 +34,7 @@ if (
 ) {
 	class Tribe__Extension__VenueOrganizer_List extends Tribe__Extension {
 		protected $base_shortcode_tag = 'tec_list_linked_posts';
-		protected $atts = array();
+		protected $atts = [];
 		protected $query;
 		protected $output = '';
 
@@ -73,11 +73,11 @@ if (
 				return;
 			}
 
-			add_shortcode( $this->base_shortcode_tag, array( $this, 'do_base_shortcode' ) );
-			add_shortcode( 'list_venues', array( $this, 'do_venue_shortcode' ) );
-			add_shortcode( 'list_organizers', array( $this, 'do_organizer_shortcode' ) );
+			add_shortcode( $this->base_shortcode_tag, [ $this, 'do_base_shortcode' ] );
+			add_shortcode( 'list_venues', [ $this, 'do_venue_shortcode' ] );
+			add_shortcode( 'list_organizers', [ $this, 'do_organizer_shortcode' ] );
 
-			add_action( 'wp_enqueue_scripts', array( $this, 'load_styles' ) );
+			add_action( 'wp_enqueue_scripts', [ $this, 'load_styles' ] );
 		}
 
 		public function load_styles() {
@@ -96,13 +96,13 @@ if (
 			$exclude = explode( ',', $exclude );
 			$include = explode( ',', $include );
 
-			$args = array(
+			$args = [
 				'post_type'      => $this->atts['post_type'],
 				'posts_per_page' => $this->atts['limit'],
 				'order'          => $this->atts['order'],
 				'orderby'        => $this->atts['orderby'],
 				'post__not_in'   => $exclude, // must be an array
-			);
+			];
 
 			if ( $this->atts['include'] ) {
 				$args['post__in'] = $include;
@@ -129,9 +129,9 @@ if (
 				$post_id = get_the_ID();
 
 				// count upcoming events
-				$args = array(
+				$args = [
 					'start_date' => date( 'Y-m-d H:i:s' ),
-				);
+				];
 
 				if ( Tribe__Events__Organizer::POSTTYPE == $this->atts['post_type'] ) {
 					$args['organizer'] = $post_id;
@@ -286,7 +286,7 @@ if (
 		 * @return string
 		 */
 		public function do_base_shortcode( $atts ) {
-			$this->atts = shortcode_atts( array(
+			$this->atts = shortcode_atts( [
 				'post_type'  => '',
 				// WP_Query sets to 'post' by default if blank, but we do not allow that within this shortcode's context to avoid unintended consequences.
 				'limit'      => -1,
@@ -299,7 +299,7 @@ if (
 				'details'    => '', // str "yes" to include Linked Post Type details
 				'count'      => '', // str "yes" to include count of upcoming events for each Venue or Organizer
 				'hide_empty' => '', // string "yes" to exclude Linked Post Type posts without upcoming events
-			), $atts, $this->base_shortcode_tag );
+			], $atts, $this->base_shortcode_tag );
 
 			if ( ! empty( $this->atts['post_type'] ) ) {
 				$this->query();
