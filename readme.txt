@@ -37,7 +37,7 @@ We're always interested in your feedback and our [premium forums](https://theeve
 
 == Changelog ==
 
-= [2.1.1] 2018-08-24 =
+= [2.1.1] 2018-08-26 =
 
 * Fix - Use our native functions to get the Organizer and Venue names and links so those get filtered and display consistent with the rest of the site
 * Tweak - Custom linked post types (other than Organizer and Venue) now link the post title, even without Events Calendar PRO
