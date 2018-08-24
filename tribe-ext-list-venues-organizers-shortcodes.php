@@ -4,7 +4,7 @@
  * Plugin URI:        https://theeventscalendar.com/extensions/list-venues-and-organizers-shortcodes/
  * GitHub Plugin URI: https://github.com/mt-support/tribe-ext-list-venues-organizers-shortcodes/
  * Description:       Adds the `[list_venues]` and `[list_organizers]` shortcodes to list Venues and Organizers. Custom linked post types (https://theeventscalendar.com/knowledgebase/linked-post-types/) can be used as well, such as `[tec_list_linked_posts post_type="tribe_ext_instructor"]`.
- * Version:           2.1.0
+ * Version:           2.1.1
  * Extension Class:   Tribe__Extension__VenueOrganizer_List
  * Author:            Modern Tribe, Inc
  * Author URI:        http://theeventscalendar.com
