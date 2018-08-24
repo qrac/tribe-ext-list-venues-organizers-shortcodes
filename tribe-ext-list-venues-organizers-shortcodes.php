@@ -49,6 +49,30 @@ if (
 			// Load plugin textdomain
 			load_plugin_textdomain( 'tribe-ext-list-venues-organizers-shortcodes', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 
+			/**
+			 * All extensions require PHP 5.6+, following along with https://theeventscalendar.com/knowledgebase/php-version-requirement-changes/
+			 */
+			$php_required_version = '5.6';
+
+			if ( version_compare( PHP_VERSION, $php_required_version, '<' ) ) {
+				if (
+					is_admin()
+					&& current_user_can( 'activate_plugins' )
+				) {
+					$message = '<p>';
+
+					$message .= sprintf( __( '%s requires PHP version %s or newer to work. Please contact your website host and inquire about updating PHP.', 'match-the-plugin-directory-name' ), $this->get_name(), $php_required_version );
+
+					$message .= sprintf( ' <a href="%1$s">%1$s</a>', 'https://wordpress.org/about/requirements/' );
+
+					$message .= '</p>';
+
+					tribe_notice( $this->get_name(), $message, 'type=error' );
+				}
+
+				return;
+			}
+
 			add_shortcode( $this->base_shortcode_tag, array( $this, 'do_base_shortcode' ) );
 			add_shortcode( 'list_venues', array( $this, 'do_venue_shortcode' ) );
 			add_shortcode( 'list_organizers', array( $this, 'do_organizer_shortcode' ) );
