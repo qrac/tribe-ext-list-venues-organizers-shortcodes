@@ -109,9 +109,9 @@ if (
 					'start_date' => date( 'Y-m-d H:i:s' ),
 				);
 
-				if ( Tribe__Events__Main::ORGANIZER_POST_TYPE == $this->atts['post_type'] ) {
+				if ( Tribe__Events__Organizer::POSTTYPE == $this->atts['post_type'] ) {
 					$args['organizer'] = $post_id;
-				} elseif ( Tribe__Events__Main::VENUE_POST_TYPE == $this->atts['post_type'] ) {
+				} elseif ( Tribe__Events__Venue::POSTTYPE == $this->atts['post_type'] ) {
 					$args['venue'] = $post_id;
 				}
 
@@ -175,9 +175,9 @@ if (
 						$details_class = sprintf( 'tribe-%s-details', esc_attr( $this->atts['post_type'] ) );
 						$details_class = str_replace( ' ', '-', $details_class );
 
-						if ( Tribe__Events__Main::ORGANIZER_POST_TYPE == $this->atts['post_type'] ) {
+						if ( Tribe__Events__Organizer::POSTTYPE == $this->atts['post_type'] ) {
 							$item_details = tribe_get_organizer_details();
-						} elseif ( Tribe__Events__Main::VENUE_POST_TYPE == $this->atts['post_type'] ) {
+						} elseif ( Tribe__Events__Venue::POSTTYPE == $this->atts['post_type'] ) {
 							$venue_details = tribe_get_venue_details();
 							$item_details  = $venue_details['address'];
 						} else {
@@ -209,13 +209,13 @@ if (
 		}
 
 		public function do_venue_shortcode( $atts ) {
-			$atts['post_type'] = Tribe__Events__Main::VENUE_POST_TYPE;
+			$atts['post_type'] = Tribe__Events__Venue::POSTTYPE;
 
 			return $this->do_base_shortcode( $atts );
 		}
 
 		public function do_organizer_shortcode( $atts ) {
-			$atts['post_type'] = Tribe__Events__Main::ORGANIZER_POST_TYPE;
+			$atts['post_type'] = Tribe__Events__Organizer::POSTTYPE;
 
 			return $this->do_base_shortcode( $atts );
 		}
