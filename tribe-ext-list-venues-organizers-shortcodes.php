@@ -6,6 +6,7 @@
  * Extension Class:   Tribe__Extension__VenueOrganizer_List
  * GitHub Plugin URI: https://github.com/mt-support/tribe-ext-list-venues-organizers-shortcodes/
  * Author:            Modern Tribe, Inc
+ * Plugin URI:        https://theeventscalendar.com/extensions/list-venues-and-organizers-shortcodes/
  * Author URI:        http://theeventscalendar.com
  * License:           GPL version 3 or any later version
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
@@ -39,8 +40,6 @@ if (
 
 		public function construct() {
 			$this->add_required_plugin( 'Tribe__Events__Main', '4.3' );
-			$this->set_url( 'https://theeventscalendar.com/extensions/list-venues-and-organizers-shortcodes/' );
-			$this->set_version( '2.1.0' );
 		}
 
 		/**
