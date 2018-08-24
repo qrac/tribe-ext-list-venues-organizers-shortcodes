@@ -199,7 +199,6 @@ if (
 
 					// get the details
 					if ( 'yes' == $details ) {
-						$item_details  = '';
 						$details_class = sprintf( 'tribe-%s-details', esc_attr( $this->atts['post_type'] ) );
 						$details_class = str_replace( ' ', '-', $details_class );
 
@@ -209,7 +208,7 @@ if (
 							$venue_details = tribe_get_venue_details();
 							$item_details  = $venue_details['address'];
 						} else {
-							$item_details = get_the_content();
+							$item_details = get_the_excerpt();
 						}
 
 						$item_details = apply_filters( 'tribe_ext_list_venues_organizers_shortcodes_item_details', $item_details, $post_id );
