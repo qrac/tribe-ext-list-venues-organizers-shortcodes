@@ -144,9 +144,9 @@ if (
 
 					// get the title - if TEC PRO, link to Linked Post Type's single page, else just output title without link
 					if ( Tribe__Dependency::instance()->is_plugin_active( 'Tribe__Events__Pro__Main' ) ) {
-						if ( Tribe__Events__Organizer::POSTTYPE == $this->atts['post_type']) {
+						if ( Tribe__Events__Organizer::POSTTYPE == $this->atts['post_type'] ) {
 							$link = tribe_get_organizer_link( $post_id );
-						} else if ( Tribe__Events__Venue::POSTTYPE == $this->atts['post_type']) {
+						} else if ( Tribe__Events__Venue::POSTTYPE == $this->atts['post_type'] ) {
 							$link = tribe_get_venue_link( $post_id );
 						}
 					} else {
@@ -168,7 +168,7 @@ if (
 					 * @since 2.1.1
 					 *
 					 * @param string $link      The full link (which may be empty or just a post title).
-					 * @param string $post_type The post type key
+					 * @param string $post_type The post type key.
 					 * @param int    $post_id   The Post ID.
 					 *
 					 * @return string
