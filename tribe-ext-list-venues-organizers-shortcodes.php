@@ -1,10 +1,11 @@
 <?php
 /**
  * Plugin name:       The Events Calendar Extension: List Venues/Organizers Shortcodes
- * Description:       Adds the `[list_venues]` and `[list_organizers]` shortcodes to list Venues and Organizers. Custom linked post types (https://theeventscalendar.com/knowledgebase/linked-post-types/) can be used as well, such as `[tec_list_linked_posts post_type="tribe_ext_instructor"]`.
- * Version:           2.1.0
- * Extension Class:   Tribe__Extension__VenueOrganizer_List
+ * Plugin URI:        https://theeventscalendar.com/extensions/list-venues-and-organizers-shortcodes/
  * GitHub Plugin URI: https://github.com/mt-support/tribe-ext-list-venues-organizers-shortcodes/
+ * Description:       Adds the `[list_venues]` and `[list_organizers]` shortcodes to list Venues and Organizers. Custom linked post types (https://theeventscalendar.com/knowledgebase/linked-post-types/) can be used as well, such as `[tec_list_linked_posts post_type="tribe_ext_instructor"]`.
+ * Version:           2.1.1
+ * Extension Class:   Tribe__Extension__VenueOrganizer_List
  * Author:            Modern Tribe, Inc
  * Author URI:        http://theeventscalendar.com
  * License:           GPL version 3 or any later version
@@ -33,14 +34,12 @@ if (
 ) {
 	class Tribe__Extension__VenueOrganizer_List extends Tribe__Extension {
 		protected $base_shortcode_tag = 'tec_list_linked_posts';
-		protected $atts = array();
+		protected $atts = [];
 		protected $query;
 		protected $output = '';
 
 		public function construct() {
 			$this->add_required_plugin( 'Tribe__Events__Main', '4.3' );
-			$this->set_url( 'https://theeventscalendar.com/extensions/list-venues-and-organizers-shortcodes/' );
-			$this->set_version( '2.1.0' );
 		}
 
 		/**
@@ -50,11 +49,35 @@ if (
 			// Load plugin textdomain
 			load_plugin_textdomain( 'tribe-ext-list-venues-organizers-shortcodes', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 
-			add_shortcode( $this->base_shortcode_tag, array( $this, 'do_base_shortcode' ) );
-			add_shortcode( 'list_venues', array( $this, 'do_venue_shortcode' ) );
-			add_shortcode( 'list_organizers', array( $this, 'do_organizer_shortcode' ) );
+			/**
+			 * All extensions require PHP 5.6+, following along with https://theeventscalendar.com/knowledgebase/php-version-requirement-changes/
+			 */
+			$php_required_version = '5.6';
 
-			add_action( 'wp_enqueue_scripts', array( $this, 'load_styles' ) );
+			if ( version_compare( PHP_VERSION, $php_required_version, '<' ) ) {
+				if (
+					is_admin()
+					&& current_user_can( 'activate_plugins' )
+				) {
+					$message = '<p>';
+
+					$message .= sprintf( __( '%s requires PHP version %s or newer to work. Please contact your website host and inquire about updating PHP.', 'match-the-plugin-directory-name' ), $this->get_name(), $php_required_version );
+
+					$message .= sprintf( ' <a href="%1$s">%1$s</a>', 'https://wordpress.org/about/requirements/' );
+
+					$message .= '</p>';
+
+					tribe_notice( $this->get_name(), $message, 'type=error' );
+				}
+
+				return;
+			}
+
+			add_shortcode( $this->base_shortcode_tag, [ $this, 'do_base_shortcode' ] );
+			add_shortcode( 'list_venues', [ $this, 'do_venue_shortcode' ] );
+			add_shortcode( 'list_organizers', [ $this, 'do_organizer_shortcode' ] );
+
+			add_action( 'wp_enqueue_scripts', [ $this, 'load_styles' ] );
 		}
 
 		public function load_styles() {
@@ -73,13 +96,13 @@ if (
 			$exclude = explode( ',', $exclude );
 			$include = explode( ',', $include );
 
-			$args = array(
+			$args = [
 				'post_type'      => $this->atts['post_type'],
 				'posts_per_page' => $this->atts['limit'],
 				'order'          => $this->atts['order'],
 				'orderby'        => $this->atts['orderby'],
 				'post__not_in'   => $exclude, // must be an array
-			);
+			];
 
 			if ( $this->atts['include'] ) {
 				$args['post__in'] = $include;
@@ -106,13 +129,13 @@ if (
 				$post_id = get_the_ID();
 
 				// count upcoming events
-				$args = array(
+				$args = [
 					'start_date' => date( 'Y-m-d H:i:s' ),
-				);
+				];
 
-				if ( Tribe__Events__Main::ORGANIZER_POST_TYPE == $this->atts['post_type'] ) {
+				if ( Tribe__Events__Organizer::POSTTYPE == $this->atts['post_type'] ) {
 					$args['organizer'] = $post_id;
-				} elseif ( Tribe__Events__Main::VENUE_POST_TYPE == $this->atts['post_type'] ) {
+				} elseif ( Tribe__Events__Venue::POSTTYPE == $this->atts['post_type'] ) {
 					$args['venue'] = $post_id;
 				}
 
@@ -140,18 +163,46 @@ if (
 						}
 					}
 
+					// reset at the start of processing each post
+					$link = '';
+
 					// get the title - if TEC PRO, link to Linked Post Type's single page, else just output title without link
-					if (
-						(
-							Tribe__Events__Main::ORGANIZER_POST_TYPE != $this->atts['post_type']
-							&& Tribe__Events__Main::VENUE_POST_TYPE != $this->atts['post_type']
-						)
-						|| defined( 'EVENTS_CALENDAR_PRO_DIR' )
-					) {
-						$link = '<a href="' . get_the_permalink() . '">' . get_the_title() . '</a>';
+					if ( Tribe__Dependency::instance()->is_plugin_active( 'Tribe__Events__Pro__Main' ) ) {
+						if ( Tribe__Events__Organizer::POSTTYPE == $this->atts['post_type'] ) {
+							$link = tribe_get_organizer_link( $post_id );
+						} else if ( Tribe__Events__Venue::POSTTYPE == $this->atts['post_type'] ) {
+							$link = tribe_get_venue_link( $post_id );
+						}
 					} else {
-						$link = get_the_title();
+						if (
+							Tribe__Events__Organizer::POSTTYPE == $this->atts['post_type']
+							|| Tribe__Events__Venue::POSTTYPE == $this->atts['post_type']
+						) {
+							$link = get_the_title();
+						}
 					}
+
+					/**
+					 * Customize the link within the List Linked Post Types shortcode.
+					 *
+					 * Useful to disable linking (href) the post title if the custom
+					 * linked post type posts do not have publicly-visible get_the_permalink()
+					 * pages, or if you want to add some additional HTML.
+					 *
+					 * @since 2.1.1
+					 *
+					 * @param string $link      The full link (which may be empty or just a post title).
+					 * @param string $post_type The post type key.
+					 * @param int    $post_id   The Post ID.
+					 *
+					 * @return string
+					 */
+					$link = (string) apply_filters( 'tribe_venue_organizer_shortcode_link', $link, $this->atts['post_type'], $post_id );
+
+					if ( empty( $link ) ) {
+						$link = sprintf( '<a href="%s">%s</a>', get_the_permalink(), get_the_title() );
+					}
+
 					$items['link'] = $link;
 
 					// get the upcoming event count string
@@ -172,17 +223,16 @@ if (
 
 					// get the details
 					if ( 'yes' == $details ) {
-						$item_details  = '';
 						$details_class = sprintf( 'tribe-%s-details', esc_attr( $this->atts['post_type'] ) );
 						$details_class = str_replace( ' ', '-', $details_class );
 
-						if ( Tribe__Events__Main::ORGANIZER_POST_TYPE == $this->atts['post_type'] ) {
+						if ( Tribe__Events__Organizer::POSTTYPE == $this->atts['post_type'] ) {
 							$item_details = tribe_get_organizer_details();
-						} elseif ( Tribe__Events__Main::VENUE_POST_TYPE == $this->atts['post_type'] ) {
+						} elseif ( Tribe__Events__Venue::POSTTYPE == $this->atts['post_type'] ) {
 							$venue_details = tribe_get_venue_details();
 							$item_details  = $venue_details['address'];
 						} else {
-							$item_details = get_the_content();
+							$item_details = get_the_excerpt();
 						}
 
 						$item_details = apply_filters( 'tribe_ext_list_venues_organizers_shortcodes_item_details', $item_details, $post_id );
@@ -210,13 +260,13 @@ if (
 		}
 
 		public function do_venue_shortcode( $atts ) {
-			$atts['post_type'] = Tribe__Events__Main::VENUE_POST_TYPE;
+			$atts['post_type'] = Tribe__Events__Venue::POSTTYPE;
 
 			return $this->do_base_shortcode( $atts );
 		}
 
 		public function do_organizer_shortcode( $atts ) {
-			$atts['post_type'] = Tribe__Events__Main::ORGANIZER_POST_TYPE;
+			$atts['post_type'] = Tribe__Events__Organizer::POSTTYPE;
 
 			return $this->do_base_shortcode( $atts );
 		}
@@ -236,7 +286,7 @@ if (
 		 * @return string
 		 */
 		public function do_base_shortcode( $atts ) {
-			$this->atts = shortcode_atts( array(
+			$this->atts = shortcode_atts( [
 				'post_type'  => '',
 				// WP_Query sets to 'post' by default if blank, but we do not allow that within this shortcode's context to avoid unintended consequences.
 				'limit'      => -1,
@@ -249,7 +299,7 @@ if (
 				'details'    => '', // str "yes" to include Linked Post Type details
 				'count'      => '', // str "yes" to include count of upcoming events for each Venue or Organizer
 				'hide_empty' => '', // string "yes" to exclude Linked Post Type posts without upcoming events
-			), $atts, $this->base_shortcode_tag );
+			], $atts, $this->base_shortcode_tag );
 
 			if ( ! empty( $this->atts['post_type'] ) ) {
 				$this->query();

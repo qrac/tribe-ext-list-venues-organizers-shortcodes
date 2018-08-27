@@ -3,9 +3,9 @@ Contributors: ModernTribe
 Donate link: http://m.tri.be/29
 Tags: events, calendar
 Requires at least: 4.5
-Tested up to: 4.9.4
-Requires PHP: 5.4
-Stable tag: 2.1.0
+Tested up to: 4.9.8
+Requires PHP: 5.6
+Stable tag: 2.1.1
 License: GPL version 3 or any later version
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -37,12 +37,20 @@ We're always interested in your feedback and our [premium forums](https://theeve
 
 == Changelog ==
 
-= 2.1.0 2018-03-23 =
+= [2.1.1] 2018-08-26 =
+
+* Fix - Use our native functions to get the Organizer and Venue names and links so those get filtered and display consistent with the rest of the site
+* Tweak - Custom linked post types (other than Organizer and Venue) now link the post title, even without Events Calendar PRO
+* Tweak - Added the `tribe_venue_organizer_shortcode_link` filter to allow customizing any link of any post type
+* Tweak - Display the excerpt instead of the full post content as the Item Details for all custom linked post types other than Organizer and Venue
+* Tweak - Now requires PHP 5.6+, as do all of our plugins and extensions.
+
+= [2.1.0] 2018-03-23 =
 
 * Feature - Registers a new `[tec_list_linked_posts]` shortcode that can have any linked post type passed to its "post_type" argument, which means this shortcode now supports custom linked post types (see code comments for limitations), such as from https://theeventscalendar.com/knowledgebase/linked-post-types/
 * Tweak - Reworked some filters to fix some not being applied and to pass the `$post_id` to filters within the loop (for each linked post type post)
 
-= 2.0.0 2018-03-19 =
+= [2.0.0] 2018-03-19 =
 
 * Fully rewritten in our Extensions Framework
 * Fix - Listing Organizers now works
@@ -56,6 +64,6 @@ We're always interested in your feedback and our [premium forums](https://theeve
 * Feature - Optionally sort Venues or Organizers by WP_Query's `order` and `orderby` parameters
 * Feature - Optionally display Venues or Organizers by author
 
-= 1.0.0 2015-04-01 =
+= [1.0.0] 2015-04-01 =
 
 * Initial release as a Knowledgebase plugin
