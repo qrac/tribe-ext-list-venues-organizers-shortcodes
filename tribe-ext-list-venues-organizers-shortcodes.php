@@ -4,7 +4,7 @@
  * Plugin URI:        https://theeventscalendar.com/extensions/list-venues-and-organizers-shortcodes/
  * GitHub Plugin URI: https://github.com/mt-support/tribe-ext-list-venues-organizers-shortcodes/
  * Description:       Adds the `[list_venues]` and `[list_organizers]` shortcodes to list Venues and Organizers. Custom linked post types (https://theeventscalendar.com/knowledgebase/linked-post-types/) can be used as well, such as `[tec_list_linked_posts post_type="tribe_ext_instructor"]`.
- * Version:           2.1.1
+ * Version:           2.1.2
  * Extension Class:   Tribe__Extension__VenueOrganizer_List
  * Author:            Modern Tribe, Inc
  * Author URI:        http://theeventscalendar.com
@@ -259,13 +259,29 @@ if (
 			wp_reset_postdata();
 		}
 
+		/**
+		 * @param $atts - an associative array of attributes, or an empty string if no attributes are given
+		 *
+		 * @return string
+		 */
 		public function do_venue_shortcode( $atts ) {
+			if ( is_string( $atts ) ) {
+				$atts = [];
+			}
 			$atts['post_type'] = Tribe__Events__Venue::POSTTYPE;
 
 			return $this->do_base_shortcode( $atts );
 		}
 
+		/**
+		 * @param $atts - an associative array of attributes, or an empty string if no attributes are given
+		 *
+		 * @return string
+		 */
 		public function do_organizer_shortcode( $atts ) {
+			if ( is_string( $atts ) ) {
+				$atts = [];
+			}
 			$atts['post_type'] = Tribe__Events__Organizer::POSTTYPE;
 
 			return $this->do_base_shortcode( $atts );
