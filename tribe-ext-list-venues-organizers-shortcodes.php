@@ -80,11 +80,17 @@ if (
 			add_action( 'wp_enqueue_scripts', [ $this, 'load_styles' ] );
 		}
 
+		/**
+		 * Load needed stylesheets
+		 */
 		public function load_styles() {
 			wp_register_style( 'tribe-list-venues-organizers-shortcodes', plugins_url( 'tribe-ext-list-venues-organizers-shortcodes/src/resources/css/tribe-list-venues-organizers-shortcodes.css' ) );
 			wp_enqueue_style( 'tribe-list-venues-organizers-shortcodes' );
 		}
 
+		/**
+		 * Creating the queries
+		 */
 		protected function query() {
 			// remove all whitespaces
 			$exclude = preg_replace( '/\s+/', '', $this->atts['exclude'] );
@@ -114,6 +120,9 @@ if (
 			$this->query = new WP_Query( apply_filters( 'tribe_ext_list_venues_organizers_shortcodes_args', $args, $this->atts ) );
 		}
 
+		/**
+		 * Creating and formatting the output
+		 */
 		protected function format() {
 			$opening_tag  = '<ul class="tribe-venues-organizers-shortcode list ' . esc_attr( $this->atts['post_type'] ) . '">';
 			$this->output = apply_filters( 'tribe_ext_list_venues_organizers_shortcodes_list_open', $opening_tag, $this->atts );
