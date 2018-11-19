@@ -265,7 +265,7 @@ if (
 		 * @return string
 		 */
 		public function do_venue_shortcode( $atts ) {
-			if ( is_string( $atts ) ) {
+			if ( ! is_array( $atts ) ) {
 				$atts = [];
 			}
 			$atts['post_type'] = Tribe__Events__Venue::POSTTYPE;
@@ -279,7 +279,7 @@ if (
 		 * @return string
 		 */
 		public function do_organizer_shortcode( $atts ) {
-			if ( is_string( $atts ) ) {
+			if ( ! is_array( $atts ) ) {
 				$atts = [];
 			}
 			$atts['post_type'] = Tribe__Events__Organizer::POSTTYPE;
