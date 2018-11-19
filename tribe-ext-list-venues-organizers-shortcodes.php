@@ -269,6 +269,8 @@ if (
 		}
 
 		/**
+		 * Creating the shortcode for venues
+		 *
 		 * @param $atts - an associative array of attributes, or an empty string if no attributes are given
 		 *
 		 * @return string
@@ -283,6 +285,8 @@ if (
 		}
 
 		/**
+		 * Creating the shortcode for organizers
+		 *
 		 * @param $atts - an associative array of attributes, or an empty string if no attributes are given
 		 *
 		 * @return string

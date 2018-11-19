@@ -37,7 +37,7 @@ We're always interested in your feedback and our [premium forums](https://theeve
 
 == Changelog ==
 
-= [2.1.2] 2018-11-16 =
+= [2.1.2] 2018-11-20 =
 
 * Fix - Added a check to make sure the right type is passed when creating shortcode
 
