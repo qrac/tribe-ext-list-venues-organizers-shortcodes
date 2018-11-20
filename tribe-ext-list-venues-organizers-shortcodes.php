@@ -4,7 +4,7 @@
  * Plugin URI:        https://theeventscalendar.com/extensions/list-venues-and-organizers-shortcodes/
  * GitHub Plugin URI: https://github.com/mt-support/tribe-ext-list-venues-organizers-shortcodes/
  * Description:       Adds the `[list_venues]` and `[list_organizers]` shortcodes to list Venues and Organizers. Custom linked post types (https://theeventscalendar.com/knowledgebase/linked-post-types/) can be used as well, such as `[tec_list_linked_posts post_type="tribe_ext_instructor"]`.
- * Version:           2.1.1
+ * Version:           2.1.2
  * Extension Class:   Tribe__Extension__VenueOrganizer_List
  * Author:            Modern Tribe, Inc
  * Author URI:        http://theeventscalendar.com
@@ -80,11 +80,17 @@ if (
 			add_action( 'wp_enqueue_scripts', [ $this, 'load_styles' ] );
 		}
 
+		/**
+		 * Load needed stylesheets
+		 */
 		public function load_styles() {
 			wp_register_style( 'tribe-list-venues-organizers-shortcodes', plugins_url( 'tribe-ext-list-venues-organizers-shortcodes/src/resources/css/tribe-list-venues-organizers-shortcodes.css' ) );
 			wp_enqueue_style( 'tribe-list-venues-organizers-shortcodes' );
 		}
 
+		/**
+		 * Creating the queries
+		 */
 		protected function query() {
 			// remove all whitespaces
 			$exclude = preg_replace( '/\s+/', '', $this->atts['exclude'] );
@@ -114,6 +120,9 @@ if (
 			$this->query = new WP_Query( apply_filters( 'tribe_ext_list_venues_organizers_shortcodes_args', $args, $this->atts ) );
 		}
 
+		/**
+		 * Creating and formatting the output
+		 */
 		protected function format() {
 			$opening_tag  = '<ul class="tribe-venues-organizers-shortcode list ' . esc_attr( $this->atts['post_type'] ) . '">';
 			$this->output = apply_filters( 'tribe_ext_list_venues_organizers_shortcodes_list_open', $opening_tag, $this->atts );
@@ -259,13 +268,33 @@ if (
 			wp_reset_postdata();
 		}
 
+		/**
+		 * Creating the shortcode for venues
+		 *
+		 * @param $atts - an associative array of attributes, or an empty string if no attributes are given
+		 *
+		 * @return string
+		 */
 		public function do_venue_shortcode( $atts ) {
+			if ( ! is_array( $atts ) ) {
+				$atts = [];
+			}
 			$atts['post_type'] = Tribe__Events__Venue::POSTTYPE;
 
 			return $this->do_base_shortcode( $atts );
 		}
 
+		/**
+		 * Creating the shortcode for organizers
+		 *
+		 * @param $atts - an associative array of attributes, or an empty string if no attributes are given
+		 *
+		 * @return string
+		 */
 		public function do_organizer_shortcode( $atts ) {
+			if ( ! is_array( $atts ) ) {
+				$atts = [];
+			}
 			$atts['post_type'] = Tribe__Events__Organizer::POSTTYPE;
 
 			return $this->do_base_shortcode( $atts );
