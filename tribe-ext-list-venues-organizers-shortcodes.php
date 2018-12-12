@@ -140,6 +140,7 @@ if (
 				// count upcoming events
 				$args = [
 					'start_date' => date( 'Y-m-d H:i:s' ),
+					'posts_per_page' => -1, // needed to get an accurate count
 				];
 
 				if ( Tribe__Events__Organizer::POSTTYPE == $this->atts['post_type'] ) {
