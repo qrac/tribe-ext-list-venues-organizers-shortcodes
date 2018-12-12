@@ -139,8 +139,8 @@ if (
 
 				// count upcoming events
 				$args = [
-					'start_date' => date( 'Y-m-d H:i:s' ),
-					'posts_per_page' => -1, // needed to get an accurate count
+					'start_date'     => date( 'Y-m-d H:i:s' ),
+					'posts_per_page' => -1, // needed in order to get an accurate count
 				];
 
 				if ( Tribe__Events__Organizer::POSTTYPE == $this->atts['post_type'] ) {
@@ -316,20 +316,21 @@ if (
 		 * @return string
 		 */
 		public function do_base_shortcode( $atts ) {
-			$this->atts = shortcode_atts( [
-				'post_type'  => '',
-				// WP_Query sets to 'post' by default if blank, but we do not allow that within this shortcode's context to avoid unintended consequences.
-				'limit'      => -1,
-				'order'      => 'ASC',
-				'orderby'    => 'post_title',
-				'exclude'    => '', // comma-separated list of Linked Post Type post IDs
-				'include'    => '', // comma-separated list of Linked Post Type post IDs
-				'author'     => '', // int || str Linked Post Type author ID or str "current_user"
-				'thumb'      => '', // str "yes" to include Linked Post Type thumbnail
-				'details'    => '', // str "yes" to include Linked Post Type details
-				'count'      => '', // str "yes" to include count of upcoming events for each Venue or Organizer
-				'hide_empty' => '', // string "yes" to exclude Linked Post Type posts without upcoming events
-			], $atts, $this->base_shortcode_tag );
+			$this->atts = shortcode_atts(
+				[
+					'post_type'  => '', // WP_Query sets to 'post' by default if blank, but we do not allow that within this shortcode's context to avoid unintended consequences.
+					'limit'      => -1,
+					'order'      => 'ASC',
+					'orderby'    => 'post_title',
+					'exclude'    => '', // comma-separated list of Linked Post Type post IDs
+					'include'    => '', // comma-separated list of Linked Post Type post IDs
+					'author'     => '', // int || str Linked Post Type author ID or str "current_user"
+					'thumb'      => '', // str "yes" to include Linked Post Type thumbnail
+					'details'    => '', // str "yes" to include Linked Post Type details
+					'count'      => '', // str "yes" to include count of upcoming events for each Venue or Organizer
+					'hide_empty' => '', // string "yes" to exclude Linked Post Type posts without upcoming events
+				], $atts, $this->base_shortcode_tag
+			);
 
 			if ( ! empty( $this->atts['post_type'] ) ) {
 				$this->query();
