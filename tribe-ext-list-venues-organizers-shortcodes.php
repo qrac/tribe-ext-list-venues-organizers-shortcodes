@@ -140,7 +140,6 @@ if (
 				// count upcoming events
 				$args = [
 					'start_date'     => date( 'Y-m-d H:i:s' ),
-					'posts_per_page' => -1, // needed in order to get an accurate count
 				];
 
 				if ( Tribe__Events__Organizer::POSTTYPE == $this->atts['post_type'] ) {
@@ -151,8 +150,10 @@ if (
 
 				$args = apply_filters( 'tribe_ext_list_venues_organizers_shortcodes_get_events_per_post_args', $args, $post_id, $this->atts );
 
-				$events       = tribe_get_events( $args );
-				$events_count = count( $events );
+				/** @var WP_Query $events */
+				$events = tribe_get_events( $args, true );
+
+				$events_count = $events->found_posts;
 
 				// generate HTML
 				if (
@@ -220,7 +221,7 @@ if (
 						! empty( $this->atts['post_type'] ) // to avoid accidental querying for 'post' post type
 						&& 'yes' == $count
 					) {
-						if ( 0 == $events_count ) {
+						if ( 0 === $events_count ) {
 							$count_string = __( 'No upcoming events', 'tribe-ext-list-venues-organizers-shortcodes' );
 						} else {
 							$count_string = sprintf( _n( '%s upcoming event', '%s upcoming events', $events_count, 'tribe-ext-list-venues-organizers-shortcodes' ), $events_count );

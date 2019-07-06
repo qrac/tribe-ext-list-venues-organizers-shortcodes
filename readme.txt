@@ -37,9 +37,9 @@ We're always interested in your feedback and our [premium forums](https://theeve
 
 == Changelog ==
 
-= [2.1.3] 2018-12-12 =
+= [2.1.3] 2019-07-09 =
 
-* Fix - The shortcode's "count" argument is no longer limited by the default `'posts_per_page'` from `tribe_get_events()` [119631]
+* Fix - The shortcode's "count" argument is now correct, no longer limited by the default `'posts_per_page'` from `tribe_get_events()` [119631]
 
 = [2.1.2] 2018-11-20 =
 
