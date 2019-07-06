@@ -139,7 +139,7 @@ if (
 
 				// count upcoming events
 				$args = [
-					'start_date'     => date( 'Y-m-d H:i:s' ),
+					'start_date' => date( 'Y-m-d H:i:s' ),
 				];
 
 				if ( Tribe__Events__Organizer::POSTTYPE == $this->atts['post_type'] ) {
