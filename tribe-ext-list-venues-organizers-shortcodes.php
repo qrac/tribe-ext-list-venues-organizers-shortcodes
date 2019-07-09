@@ -4,7 +4,7 @@
  * Plugin URI:        https://theeventscalendar.com/extensions/list-venues-and-organizers-shortcodes/
  * GitHub Plugin URI: https://github.com/mt-support/tribe-ext-list-venues-organizers-shortcodes/
  * Description:       Adds the `[list_venues]` and `[list_organizers]` shortcodes to list Venues and Organizers. Custom linked post types (https://theeventscalendar.com/knowledgebase/linked-post-types/) can be used as well, such as `[tec_list_linked_posts post_type="tribe_ext_instructor"]`.
- * Version:           2.1.2
+ * Version:           2.1.3
  * Extension Class:   Tribe__Extension__VenueOrganizer_List
  * Author:            Modern Tribe, Inc
  * Author URI:        http://theeventscalendar.com
@@ -150,8 +150,10 @@ if (
 
 				$args = apply_filters( 'tribe_ext_list_venues_organizers_shortcodes_get_events_per_post_args', $args, $post_id, $this->atts );
 
-				$events       = tribe_get_events( $args );
-				$events_count = count( $events );
+				/** @var WP_Query $events */
+				$events = tribe_get_events( $args, true );
+
+				$events_count = $events->found_posts;
 
 				// generate HTML
 				if (
@@ -219,7 +221,7 @@ if (
 						! empty( $this->atts['post_type'] ) // to avoid accidental querying for 'post' post type
 						&& 'yes' == $count
 					) {
-						if ( 0 == $events_count ) {
+						if ( 0 === $events_count ) {
 							$count_string = __( 'No upcoming events', 'tribe-ext-list-venues-organizers-shortcodes' );
 						} else {
 							$count_string = sprintf( _n( '%s upcoming event', '%s upcoming events', $events_count, 'tribe-ext-list-venues-organizers-shortcodes' ), $events_count );
@@ -315,20 +317,21 @@ if (
 		 * @return string
 		 */
 		public function do_base_shortcode( $atts ) {
-			$this->atts = shortcode_atts( [
-				'post_type'  => '',
-				// WP_Query sets to 'post' by default if blank, but we do not allow that within this shortcode's context to avoid unintended consequences.
-				'limit'      => -1,
-				'order'      => 'ASC',
-				'orderby'    => 'post_title',
-				'exclude'    => '', // comma-separated list of Linked Post Type post IDs
-				'include'    => '', // comma-separated list of Linked Post Type post IDs
-				'author'     => '', // int || str Linked Post Type author ID or str "current_user"
-				'thumb'      => '', // str "yes" to include Linked Post Type thumbnail
-				'details'    => '', // str "yes" to include Linked Post Type details
-				'count'      => '', // str "yes" to include count of upcoming events for each Venue or Organizer
-				'hide_empty' => '', // string "yes" to exclude Linked Post Type posts without upcoming events
-			], $atts, $this->base_shortcode_tag );
+			$this->atts = shortcode_atts(
+				[
+					'post_type'  => '', // WP_Query sets to 'post' by default if blank, but we do not allow that within this shortcode's context to avoid unintended consequences.
+					'limit'      => -1,
+					'order'      => 'ASC',
+					'orderby'    => 'post_title',
+					'exclude'    => '', // comma-separated list of Linked Post Type post IDs
+					'include'    => '', // comma-separated list of Linked Post Type post IDs
+					'author'     => '', // int || str Linked Post Type author ID or str "current_user"
+					'thumb'      => '', // str "yes" to include Linked Post Type thumbnail
+					'details'    => '', // str "yes" to include Linked Post Type details
+					'count'      => '', // str "yes" to include count of upcoming events for each Venue or Organizer
+					'hide_empty' => '', // string "yes" to exclude Linked Post Type posts without upcoming events
+				], $atts, $this->base_shortcode_tag
+			);
 
 			if ( ! empty( $this->atts['post_type'] ) ) {
 				$this->query();
