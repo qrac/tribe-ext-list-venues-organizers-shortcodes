@@ -77,7 +77,7 @@ if (
 			add_shortcode( 'list_venues', [ $this, 'do_venue_shortcode' ] );
 			add_shortcode( 'list_organizers', [ $this, 'do_organizer_shortcode' ] );
 
-			add_action( 'wp_enqueue_scripts', [ $this, 'load_styles' ] );
+			//add_action( 'wp_enqueue_scripts', [ $this, 'load_styles' ] );
 		}
 
 		/**
@@ -124,7 +124,7 @@ if (
 		 * Creating and formatting the output
 		 */
 		protected function format() {
-			$opening_tag  = '<ul class="tribe-venues-organizers-shortcode list ' . esc_attr( $this->atts['post_type'] ) . '">';
+			$opening_tag  = '<div class="tribe-venues-organizers-shortcode list ' . esc_attr( $this->atts['post_type'] ) . '">';
 			$this->output = apply_filters( 'tribe_ext_list_venues_organizers_shortcodes_list_open', $opening_tag, $this->atts );
 
 			// remove all whitespaces
@@ -163,13 +163,13 @@ if (
 						&& $events_count > 0
 					)
 				) :
-					$item       = sprintf( '<li id="%s" class="tec list %s">', esc_attr( $this->atts['post_type'] . '-' . $post_id ), esc_attr( $this->atts['post_type'] ) );
+					$item       = sprintf( '<div id="%s" class="tec list %s">', esc_attr( $this->atts['post_type'] . '-' . $post_id ), esc_attr( $this->atts['post_type'] ) );
 					$item_thumb = '';
 
 					// get the post thumbnail (if there is one)
 					if ( 'yes' == $thumb ) {
 						if ( get_the_post_thumbnail( $post_id ) ) {
-							$image      = '<div class="tribe-venues-organizers-image">' . get_the_post_thumbnail( $post_id, 'thumbnail' ) . '</div>';
+							$image      = '<div class="tribe-venues-organizers-image">' . get_the_post_thumbnail( $post_id, 'medium' ) . '</div>';
 							$item_thumb = $image;
 						}
 					}
@@ -260,13 +260,13 @@ if (
 					$item .= $item_thumb ? $item_thumb : '';
 					$item .= '<div class="tribe-venues-organizers-info">';
 
-					$item .= implode( '', $items ) . '</div></li>';
+					$item .= implode( '', $items ) . '</div></div>';
 
 					$this->output .= apply_filters( 'tribe_ext_list_venues_organizers_shortcodes_list_item', $item, $post_id, $this->atts );
 				endif;
 			}
 
-			$this->output .= apply_filters( 'tribe_ext_list_venues_organizers_shortcodes_list_close', '</ul>', $this->atts );
+			$this->output .= apply_filters( 'tribe_ext_list_venues_organizers_shortcodes_list_close', '</div>', $this->atts );
 			wp_reset_postdata();
 		}
 
